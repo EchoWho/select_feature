@@ -1,0 +1,4 @@
+*.pyc
+yahoo_results/*
+*.npz
+*.npy
