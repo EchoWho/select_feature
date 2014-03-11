@@ -756,7 +756,7 @@ def all_results_groups_p(problem, K=None, costs=None, groups=None, optimal=None)
     results = []
     names = []
 
-    do_FR = 0
+    do_FR = False
     if do_FR :
       t0 = time.time()
       results.append(alg_forward_groups(problem, K, costs, groups, method='group'))

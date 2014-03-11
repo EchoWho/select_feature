@@ -11,32 +11,16 @@ if __name__ == "__main__":
   budget_list = [ 10, 20, 30, 40, 50, 60, 70, 80, 100, 150, 200, 250, 300, \
     350, 400, 500, 600, 700, 800, 1000, 1200, 1400, 1600, 1800, 2000,  \
     2500, 3000 ]
-  methods = ['OMP', 'OMP NOINV', 'OMP SINGLE'  ]
-
-  if yahoo_common.whiten :
-    print "load whiten matrix from %s" % ('data/yahoo.set2.train.bC.npz')
-    model_bC_name = 'data/yahoo.set2.train.bC.npz'
-  else:
-    model_bC_name = 'data/yahoo.set2.train.bC.no_whiten.npz'
-  model_bC = np.load(model_bC_name)
-  X_mean = model_bC['X_mean']
-  X_std = model_bC['X_std']
-  L_whiten = model_bC['L_whiten']
+  methods = ['OMP', 'OMP NOINV', 'OMP SINGLE'] #'FR', 'FR SINGLE' ]
+  set_id = 2
 
   print "Load data"
-  X, Y = yahoo_common.load_raw_data(filename)
-  if yahoo_common.whiten :
-    print "Whiten data"
-    X = X.dot(L_whiten)
-  else:
-    X = (X - X_mean) / X_std
+  X_raw, Y = yahoo_common.load_raw_data(filename)
+  X = yahoo_common.preprocess_X(X_raw, set_id)
   
   for i in range(yahoo_common.n_group_splits):
-    print "load group %d" % (i)
-    if yahoo_common.whiten:
-      model_group_name = "yahoo_results/group.%d.npz" % (i)
-    else:
-      model_group_name = "yahoo_results/group.%d.no_whiten.npz" % (i)
+    print "load group split %d" % (i)
+    model_group_name = yahoo_common.filename_model(set_id, i)
     print model_group_name
     d = np.load(model_group_name)
     l = []
@@ -57,11 +41,9 @@ if __name__ == "__main__":
           l[-1].append(opt.loss(w, selected_X, Y))
         else:
           print "sorry"
-          l[-1].append(5)
+          l[-1].append(2)
       
-    if yahoo_common.whiten :
-      result_name = "yahoo_results/budget_vs_loss.group.%d.npz" % (i)
-    else :
-      result_name = "yahoo_results/budget_vs_loss.group.%d.no_whiten.npz" % (i)
+    result_name = yahoo_common.filename_budget_vs_loss(set_id, i)
     L = np.array(l)
-    np.savez(result_name, budget=budget_list, L=L)
+    np.savez(result_name, budget=budget_list, L=dict(zip(methods, L)))
+    d.close()
