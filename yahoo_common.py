@@ -32,7 +32,7 @@ def filename_budget_vs_loss(set_id, partition_id) :
   """ Filenmae for final results """
   return '%s/set%d.budget_vs_loss.group%d.%snpz' % (result_dir, set_id, partition_id, param_str())
 
-def preprocess_X(X_raw, set_id) :
+def preprocess_X(X_raw, Y_raw, set_id) :
   filename = filename_preprocess_info(set_id)
   d = np.load(filename)
   if whiten :
@@ -41,10 +41,10 @@ def preprocess_X(X_raw, set_id) :
   else :
     X_mean = d['X_mean']
     X_std = d['X_std']
-    #X = (X_raw - X_mean) / X_std
-    X = X_raw
+    X = (X_raw - X_mean) / X_std
+  Y = Y_raw - d['Y_mean']
   d.close()
-  return X
+  return X, Y
 
 def load_group() :
   d_groups = np.load('%s/yahoo.groups.npz' % (data_dir))

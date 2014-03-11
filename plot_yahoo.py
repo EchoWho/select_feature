@@ -37,20 +37,20 @@ def plot_batch(x,
                markevery=1) :
   results = [ vec_y[name] for name in names ]
   for name, color, marker, result in zip(names, colors, markers, results) :
-    plt.plot(x, result, color=color, linewidth=2, linestyle=style, marker=marker,
+    plt.plot(x[2:20], result[2:20], color=color, linewidth=2, linestyle=style, marker=marker,
              markerfacecolor='none', markersize=7.0, markeredgewidth=1.5,
              markeredgecolor=color, markevery=markevery)
 
 
+do_FR = True
 if show_both:
   pass
 elif yahoo_common.whiten:
-  do_FR = False
   if do_FR :
     plot_batch(b, L, ['FR', 'OMP'], 'rgb', 's+o^', '-')
-    #plot_batch(b, L, ['OMP NOINV'], 'g', 'o', ':')
+    plot_batch(b, L, ['OMP NOINV'], 'g', 'o', ':')
     plot_batch(b, L, ['FR SINGLE', 'OMP SINGLE'], 'rgb', '+o^', '--')
-    plt.legend(('FR - Grouped', 'OMP - Grouped', 'FR - Single', 
+    plt.legend(('FR - Grouped', 'OMP - Grouped', 'OMP - Grouped Naive', 'FR - Single', 
                 'OMP - Single'), loc='upper right', prop={'size':18})
   else:
     plot_batch(b, L, ['OMP'], 'gb', 's+o^', '-')
@@ -58,14 +58,12 @@ elif yahoo_common.whiten:
     plot_batch(b, L, ['OMP SINGLE'], 'gb', '+o^', '--')
     plt.legend(('OMP - Grouped', 'OMP - Grouped Naive',
                 'OMP - Single'), loc='upper right', prop={'size':18})
-
 else:
-  do_FR = False
   if do_FR :
     plot_batch(b_nw, L_nw, ['FR', 'OMP'], 'rgb', 's+o^', '-')
-    #plot_batch(b, L, ['OMP NOINV'], 'g', 'o', ':')
+    plot_batch(b_nw, L_nw, ['OMP NOINV'], 'g', 'o', ':')
     plot_batch(b_nw, L_nw, ['FR SINGLE', 'OMP SINGLE'], 'rgb', '+o^', '--')
-    plt.legend(('FR - Grouped', 'OMP - Grouped', 'FR - Single', 
+    plt.legend(('FR - Grouped', 'OMP - Grouped', 'OMP - Grouped Naive', 'FR - Single', 
                 'OMP - Single'), loc='upper right', prop={'size':18})
   else:
     plot_batch(b_nw, L_nw, ['OMP'], 'gb', 's+o^', '-')

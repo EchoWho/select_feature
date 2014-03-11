@@ -11,12 +11,12 @@ if __name__ == "__main__":
   budget_list = [ 10, 20, 30, 40, 50, 60, 70, 80, 100, 150, 200, 250, 300, \
     350, 400, 500, 600, 700, 800, 1000, 1200, 1400, 1600, 1800, 2000,  \
     2500, 3000 ]
-  methods = ['OMP', 'OMP NOINV', 'OMP SINGLE'] #'FR', 'FR SINGLE' ]
+  methods = ['OMP', 'OMP NOINV', 'OMP SINGLE', 'FR', 'FR SINGLE' ]
   set_id = 2
 
   print "Load data"
   X_raw, Y = yahoo_common.load_raw_data(filename)
-  X = yahoo_common.preprocess_X(X_raw, set_id)
+  X, Y = yahoo_common.preprocess_X(X_raw, Y, set_id)
   
   for i in range(yahoo_common.n_group_splits):
     print "load group split %d" % (i)
