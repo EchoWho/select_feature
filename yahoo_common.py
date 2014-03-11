@@ -42,6 +42,7 @@ def preprocess_X(X_raw, set_id) :
     X_mean = d['X_mean']
     X_std = d['X_std']
     #X = (X_raw - X_mean) / X_std
+    X = X_raw
   d.close()
   return X
 
