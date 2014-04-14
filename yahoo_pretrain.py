@@ -37,7 +37,7 @@ def parse(filename, whiten):
   else:
     m_X = np.mean(X, axis=0)
     sig_X=np.std(X, axis=0)
-    sig_X=np.maximum(1, sig_X)
+    sig_X += sig_X ==0
     X= (X - m_X) / sig_X
   # b, C
   b=X.T.dot(Y) / X.shape[0]

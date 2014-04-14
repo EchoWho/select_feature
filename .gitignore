@@ -1,5 +1,8 @@
 *.pyc
 yahoo_results/*
+grain_results/*
+grain_data/*
+yahoo_data/*
 *.npz
 *.npy
 data
