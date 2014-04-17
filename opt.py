@@ -959,7 +959,7 @@ def alg_forward_groups(problem, K=None, costs=None, groups=None, method='group')
 
     t0 = time.time()
     for k in range(K):
-        print 'FR Iteration %d' % k
+        #print 'FR Iteration %d' % k
 
         best_gain = 0
         best_group = -1

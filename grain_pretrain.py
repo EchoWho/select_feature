@@ -60,14 +60,19 @@ def mean_std_finalize(state):
   std_X += std_X == 0
   return cnt, m_Y, m_X, std_X
 
-def parse(filename, whiten):
-  state = grain_common.load_and_process(filename,
-                                        mean_std_state_0(),
-                                        mean_std_update)
+def parse(filenames, whiten):
+  state = mean_std_state_0()
+  for _, filename in enumerate(filenames):
+    state = grain_common.load_and_process(filename,
+                                          state,
+                                          mean_std_update)
   cnt, m_Y, m_X, std_X = mean_std_finalize(state)
-  state = grain_common.load_and_process(filename,
-                                        pretrain_state_0(cnt, m_Y, m_X, std_X),
-                                        pretrain_update)
+
+  state = pretrain_state_0(cnt, m_Y, m_X, std_X)
+  for _, filename in enumerate(filenames):
+    state = grain_common.load_and_process(filename,
+                                          state,
+                                          pretrain_update)
   b, C = pretrain_finalize(state)
 
   check = False
@@ -112,8 +117,13 @@ if len(sys.argv)<2:
   print "Usage: python txt2bC.py <set_id>"
 else:
   set_id = int(sys.argv[1])
-  filename = grain_common.filename_data(set_id, 'train')
-  L, m_X, m_Y, std_X, b,C = parse(filename, whiten=grain_common.whiten)
+  filenames = []
+  for s in range(grain_common.nbr_train_sets):
+    if (s+1 != set_id):
+      filename = grain_common.filename_data(s+1, 'train')
+      filenames.append(filename)
+
+  L, m_X, m_Y, std_X, b,C = parse(filenames, whiten=grain_common.whiten)
 
   filename = grain_common.filename_preprocess_info(set_id)
   np.savez(filename, b=b, C=C, X_std=std_X, X_mean=m_X, Y_mean=m_Y, L_whiten=L)
