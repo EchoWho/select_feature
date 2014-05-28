@@ -1,0 +1,279 @@
+--------------------------------
+Lambda experiment on grain Wed May 14 00:41:39 EDT 2014
+--------------------------------
+Lambda experiment on grain Wed May 14 00:45:42 EDT 2014
+python grain.py 2 1e-7
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 5.760028
+Forward Reg. on features total time 19.181512
+OMP total time 0.686710
+OMP total time 0.217963
+OMP total time 0.600559
+python grain_classify.py 2 2 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+/home/hanzhang/projects/select_feature/code/grain_results/set2.model.lam0.000000.no_whiten.npz
+--------------------------------
+Lambda experiment on grain Wed May 14 01:02:07 EDT 2014
+python grain.py 1 e-7
+ERROR: Couldn't find CPLEX
+python grain.py 2 e-7
+ERROR: Couldn't find CPLEX
+python grain.py 3 e-7
+ERROR: Couldn't find CPLEX
+python grain.py 4 e-7
+ERROR: Couldn't find CPLEX
+python grain.py 5 e-7
+ERROR: Couldn't find CPLEX
+--------------------------------
+Lambda experiment on grain Wed May 14 01:06:49 EDT 2014
+python grain.py 1 e-7
+ERROR: Couldn't find CPLEX
+python grain.py 2 e-7
+ERROR: Couldn't find CPLEX
+python grain.py 3 e-7
+ERROR: Couldn't find CPLEX
+python grain.py 4 e-7
+ERROR: Couldn't find CPLEX
+python grain.py 5 e-7
+ERROR: Couldn't find CPLEX
+--------------------------------
+Lambda experiment on grain Wed May 14 01:07:16 EDT 2014
+python grain.py 1 1e-7
+ERROR: Couldn't find CPLEX
+Exited with no group selected on iteration 52
+Forward Reg. total time 5.954001
+Exited with no group selected on iteration 57
+Forward Reg. on features total time 19.325714
+OMP total time 0.638585
+OMP total time 0.625317
+OMP total time 0.560461
+python grain.py 2 1e-7
+ERROR: Couldn't find CPLEX
+Exited with no group selected on iteration 55
+Forward Reg. total time 8.692289
+Exited with no group selected on iteration 57
+Forward Reg. on features total time 20.873474
+OMP total time 0.625421
+OMP total time 0.589540
+OMP total time 0.558545
+python grain.py 3 1e-7
+ERROR: Couldn't find CPLEX
+Exited with no group selected on iteration 49
+Forward Reg. total time 4.176132
+Exited with no group selected on iteration 58
+Forward Reg. on features total time 19.170462
+Exited with no group selected on iteration 58
+OMP total time 0.620763
+OMP total time 0.636762
+OMP total time 0.567811
+python grain.py 4 1e-7
+ERROR: Couldn't find CPLEX
+Exited with no group selected on iteration 48
+Forward Reg. total time 2.943875
+Exited with no group selected on iteration 58
+Forward Reg. on features total time 18.844187
+OMP total time 0.648877
+OMP total time 0.634684
+OMP total time 0.570140
+python grain.py 5 1e-7
+ERROR: Couldn't find CPLEX
+Exited with no group selected on iteration 50
+Forward Reg. total time 4.047452
+Exited with no group selected on iteration 48
+Forward Reg. on features total time 15.869896
+Exited with no group selected on iteration 57
+OMP total time 0.596296
+OMP total time 0.615305
+OMP total time 0.573505
+--------------------------------
+Lambda experiment on grain Wed May 14 13:46:33 EDT 2014
+python grain.py 1 1e-7
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 9.213089
+Forward Reg. on features total time 23.367827
+OMP total time 0.730680
+OMP total time 0.568831
+OMP total time 0.644805
+python grain.py 2 1e-7
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 8.979982
+Forward Reg. on features total time 24.797188
+OMP total time 0.752022
+OMP total time 0.240530
+OMP total time 0.664392
+python grain.py 3 1e-7
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 11.829136
+Forward Reg. on features total time 24.831120
+OMP total time 0.760222
+OMP total time 0.321448
+OMP total time 0.665521
+python grain.py 4 1e-7
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 9.360827
+Forward Reg. on features total time 25.064084
+OMP total time 0.805316
+OMP total time 0.231806
+OMP total time 0.753684
+python grain.py 5 1e-7
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 11.020327
+Forward Reg. on features total time 26.827573
+OMP total time 0.778154
+OMP total time 0.287305
+OMP total time 0.695018
+--------------------------------
+Lambda experiment on grain Wed May 14 13:55:16 EDT 2014
+python grain.py 1 1e-7
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 6.185127
+Forward Reg. on features total time 21.071550
+OMP total time 0.778895
+OMP total time 0.316459
+OMP total time 0.664624
+python grain.py 2 1e-7
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 6.298069
+Forward Reg. on features total time 20.832421
+OMP total time 0.728728
+OMP total time 0.233333
+OMP total time 0.627120
+python grain.py 3 1e-7
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 6.379671
+Forward Reg. on features total time 21.104935
+OMP total time 0.755860
+OMP total time 0.293606
+OMP total time 0.615103
+python grain.py 4 1e-7
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 6.451191
+Forward Reg. on features total time 22.320278
+OMP total time 0.756628
+OMP total time 0.307241
+OMP total time 0.666267
+python grain.py 5 1e-7
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 6.477896
+Forward Reg. on features total time 21.440571
+OMP total time 0.738971
+OMP total time 0.297673
+OMP total time 0.689397
+--------------------------------
+Lambda experiment on grain Wed May 14 14:01:51 EDT 2014
+python grain_classify.py 1 1 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+python grain_classify.py 2 2 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+python grain_classify.py 3 3 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+python grain_classify.py 4 4 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+python grain_classify.py 5 5 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+--------------------------------
+Lambda experiment on grain Wed May 14 14:02:55 EDT 2014
+python grain_classify.py 1 1 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+/home/hanzhang/projects/select_feature/code/grain_results/set1.model.lam0.000000.no_whiten.npz
+python grain_classify.py 2 2 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+/home/hanzhang/projects/select_feature/code/grain_results/set2.model.lam0.000000.no_whiten.npz
+python grain_classify.py 3 3 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+/home/hanzhang/projects/select_feature/code/grain_results/set3.model.lam0.000000.no_whiten.npz
+python grain_classify.py 4 4 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+/home/hanzhang/projects/select_feature/code/grain_results/set4.model.lam0.000000.no_whiten.npz
+python grain_classify.py 5 5 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+/home/hanzhang/projects/select_feature/code/grain_results/set5.model.lam0.000000.no_whiten.npz
+--------------------------------
+Lambda experiment on grain Wed May 14 18:17:02 EDT 2014
+python grain_classify.py 1 1 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+python grain_classify.py 2 2 1e-7
+python grain_classify.py 3 3 1e-7
+python grain_classify.py 4 4 1e-7
+python grain_classify.py 5 5 1e-7
+--------------------------------
+Lambda experiment on grain Wed May 14 18:34:03 EDT 2014
+python grain_classify.py 1 1 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+/home/hanzhang/projects/select_feature/code/grain_results/set1.model.lam0.000000.npz
+python grain_classify.py 2 2 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+/home/hanzhang/projects/select_feature/code/grain_results/set2.model.lam0.000000.npz
+python grain_classify.py 3 3 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+/home/hanzhang/projects/select_feature/code/grain_results/set3.model.lam0.000000.npz
+python grain_classify.py 4 4 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+/home/hanzhang/projects/select_feature/code/grain_results/set4.model.lam0.000000.npz
+python grain_classify.py 5 5 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+/home/hanzhang/projects/select_feature/code/grain_results/set5.model.lam0.000000.npz
+--------------------------------
+Lambda experiment on grain Wed May 14 20:33:45 EDT 2014
+python grain_classify.py 1 1 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+/home/hanzhang/projects/select_feature/code/grain_results/set1.model.lam0.000000.no_whiten.eq_costs.npz
+python grain_classify.py 2 2 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+--------------------------------
+Lambda experiment on grain Wed May 14 20:44:18 EDT 2014
+python grain_classify.py 1 1 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+/home/hanzhang/projects/select_feature/code/grain_results/set1.model.lam0.000000.no_whiten.eq_costs.npz
+python grain_classify.py 2 2 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+/home/hanzhang/projects/select_feature/code/grain_results/set2.model.lam0.000000.no_whiten.eq_costs.npz
+python grain_classify.py 3 3 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+python grain_classify.py 4 4 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+--------------------------------
+Lambda experiment on grain Wed May 14 21:16:31 EDT 2014
+python grain_classify.py 1 1 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+/home/hanzhang/projects/select_feature/code/grain_results/set1.model.lam0.000000.no_whiten.eq_costs.npz
+python grain_classify.py 2 2 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+/home/hanzhang/projects/select_feature/code/grain_results/set2.model.lam0.000000.no_whiten.eq_costs.npz
+python grain_classify.py 3 3 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+/home/hanzhang/projects/select_feature/code/grain_results/set3.model.lam0.000000.no_whiten.eq_costs.npz
+python grain_classify.py 4 4 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+/home/hanzhang/projects/select_feature/code/grain_results/set4.model.lam0.000000.no_whiten.eq_costs.npz
+python grain_classify.py 5 5 1e-7
+ERROR: Couldn't find CPLEX
+Load data
+/home/hanzhang/projects/select_feature/code/grain_results/set5.model.lam0.000000.no_whiten.eq_costs.npz

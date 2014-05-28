@@ -5,17 +5,16 @@ default_set_id=4
 nbr_train_sets=5
 feat_dim=328
 whiten=False
-ignore_costs=False
 
 root_dir='/home/hanzhang/projects/select_feature/code'
 data_dir='%s/grain_data' % (root_dir)
 result_dir='%s/grain_results' % (root_dir)
 
-def param_str() :
+def param_str(do_whiten=whiten, ignore_cost=False) :
   s = ''
-  if not whiten :
+  if not do_whiten :
     s += 'no_whiten.'
-  if ignore_costs:
+  if ignore_cost:
     s += 'eq_costs.'
   return s
 
@@ -23,20 +22,24 @@ def filename_data(set_id, mode) :
   """ Training data filename """
   return '%s/set%d.%s.txt' % (data_dir, set_id, mode)
 
-def filename_preprocess_info(set_id) : 
+def filename_preprocess_info(set_id, do_whiten=whiten) : 
   """ 
     Filename containing information needed for preprocess data, 
     and (b, C) for training 
   """
-  return '%s/grain.set%d.train.bC.%snpz' % (data_dir, set_id, param_str())
+  # it's "false" here because we recompute the L at preprocessing time and training time 
+  # for now TODO
+  return '%s/grain.set%d.train.bC.%snpz' % (data_dir, set_id, param_str(False))
  
-def filename_model(set_id) :
+def filename_model(set_id, lam, do_whiten=whiten, ignore_cost=False) :
   """ Filename for model trained by feature selection """
-  return '%s/set%d.model.%snpz' % (result_dir, set_id, param_str())
+  return '%s/set%d.model.lam%f.%snpz' % (result_dir, set_id, lam, 
+    param_str(do_whiten, ignore_cost))
 
-def filename_budget_vs_loss(set_id) :
+def filename_budget_vs_loss(set_id, lam, do_whiten=whiten, ignore_cost=False) :
   """ Filenmae for final results """
-  return '%s/set%d.budget_vs_loss.%snpz' % (result_dir, set_id, param_str())
+  return '%s/set%d.budget_vs_loss.lam%f.%snpz' % (result_dir, set_id, lam, 
+    param_str(do_whiten, ignore_cost))
 
 def filename_budget_vs_loss_img(set_id, plot_err, unit_costs) :
   """ Filenmae for final results """
@@ -52,17 +55,22 @@ def filename_budget_vs_loss_img(set_id, plot_err, unit_costs) :
 
 def preprocess_X(X_raw, Y_raw, set_id) :
   filename = filename_preprocess_info(set_id)
-  d = np.load(filename)
+  doc = np.load(filename)
   if whiten :
-    L_whiten = d['L_whiten']
-    X = X_raw.dot(L_whiten)
+    C = doc['C']
+    d, V = np.linalg.eigh(C)
+    d = np.maximum(d, 0)
+    D = np.diag(1 / np.sqrt(d + 1e-18))
+    L = np.dot(np.dot(V, D), V.T)
+    X = X_raw.dot(L)
   else :
-    X_mean = d['X_mean']
-    X_std = d['X_std']
+    X_mean = doc['X_mean']
+    X_std = doc['X_std']
     X_std += X_std==0
     X = (X_raw - X_mean) / X_std
-  Y = Y_raw - d['Y_mean']
-  d.close()
+  Y_mean = doc['Y_mean']
+  Y = Y_raw - Y_mean
+  doc.close()
   return X, Y
 
 def load_group() :

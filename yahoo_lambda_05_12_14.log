@@ -1,0 +1,170 @@
+--------------------------------
+Lambda experiment on Yahoo Mon May 12 19:09:30 EDT 2014
+python yahoo.py 2 5 1e-6
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 184.728819
+Forward Reg. on features total time 817.166103
+OMP total time 7.312908
+OMP total time 6.385810
+OMP total time 6.964136
+python yahoo.py 2 5 1e-5
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 182.892369
+Forward Reg. on features total time 814.704310
+OMP total time 7.300056
+OMP total time 6.321995
+OMP total time 6.903710
+python yahoo.py 2 5 1e-4
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 181.906001
+Forward Reg. on features total time 808.241559
+OMP total time 6.968093
+OMP total time 6.180725
+OMP total time 6.616866
+python yahoo.py 2 5 1e-3
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 180.731072
+Forward Reg. on features total time 803.695625
+OMP total time 7.076700
+OMP total time 6.254190
+OMP total time 6.788748
+python yahoo.py 2 5 1e-2
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 180.635068
+Forward Reg. on features total time 800.009479
+OMP total time 7.162830
+OMP total time 6.263003
+OMP total time 6.658174
+python yahoo.py 2 5 5e-2
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 181.306305
+Forward Reg. on features total time 803.518587
+OMP total time 6.905521
+OMP total time 6.174263
+OMP total time 6.538995
+python yahoo.py 2 10 1e-6
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 54.798893
+Forward Reg. on features total time 432.428657
+OMP total time 3.633820
+OMP total time 3.405148
+OMP total time 3.654674
+python yahoo.py 2 10 1e-5
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 54.906781
+Forward Reg. on features total time 430.845801
+OMP total time 3.631520
+OMP total time 3.391423
+OMP total time 3.632814
+python yahoo.py 2 10 1e-4
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 54.553279
+Forward Reg. on features total time 443.028697
+OMP total time 3.758242
+OMP total time 3.488465
+OMP total time 3.682455
+python yahoo.py 2 10 1e-3
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 55.570340
+Forward Reg. on features total time 457.522157
+OMP total time 3.969027
+OMP total time 3.745429
+OMP total time 3.943229
+python yahoo.py 2 10 1e-2
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 59.567012
+Forward Reg. on features total time 443.241267
+OMP total time 3.787885
+OMP total time 3.462581
+OMP total time 3.694734
+python yahoo.py 2 10 5e-2
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 58.190506
+Forward Reg. on features total time 557.884092
+OMP total time 3.886506
+OMP total time 3.725110
+OMP total time 3.764381
+python yahoo.py 2 15 1e-6
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 27.757853
+Forward Reg. on features total time 409.000511
+OMP total time 2.757672
+OMP total time 2.486981
+OMP total time 3.106156
+python yahoo.py 2 15 1e-5
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 30.814623
+Forward Reg. on features total time 368.912705
+OMP total time 2.618673
+OMP total time 2.453324
+OMP total time 2.863550
+python yahoo.py 2 15 1e-4
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 32.162466
+Forward Reg. on features total time 415.086366
+OMP total time 4.331255
+OMP total time 3.973942
+OMP total time 4.203883
+python yahoo.py 2 15 1e-3
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 42.533803
+Forward Reg. on features total time 364.804720
+OMP total time 4.268737
+OMP total time 3.890777
+OMP total time 4.166427
+python yahoo.py 2 15 1e-2
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 36.945670
+Forward Reg. on features total time 366.599077
+OMP total time 2.639397
+OMP total time 2.416478
+OMP total time 2.539026
+python yahoo.py 2 15 5e-2
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 38.996033
+Forward Reg. on features total time 407.822781
+OMP total time 4.331121
+OMP total time 3.928225
+OMP total time 4.293065
+python yahoo.py 2 20 1e-6
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 18.610326
+Forward Reg. on features total time 263.150090
+OMP total time 1.989875
+OMP total time 1.858642
+OMP total time 2.110017
+python yahoo.py 2 20 1e-5
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 17.073012
+Forward Reg. on features total time 253.983620
+OMP total time 2.277184
+OMP total time 2.352902
+OMP total time 1.929714
+python yahoo.py 2 20 1e-4
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 20.943793
+Forward Reg. on features total time 261.289776
+OMP total time 1.981236
+OMP total time 1.869145
+OMP total time 1.940106
+python yahoo.py 2 20 1e-3
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 25.702543
+Forward Reg. on features total time 283.444089
+OMP total time 2.931488
+OMP total time 3.061329
+OMP total time 3.216317
+python yahoo.py 2 20 1e-2
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 26.733451
+Forward Reg. on features total time 318.903751
+OMP total time 3.394971
+OMP total time 3.085597
+OMP total time 3.326753
+python yahoo.py 2 20 5e-2
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 21.042705
+Forward Reg. on features total time 263.085408
+OMP total time 3.263719
+OMP total time 1.962035
+OMP total time 1.925027

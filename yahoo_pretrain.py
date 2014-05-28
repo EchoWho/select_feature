@@ -14,26 +14,15 @@ def parse(filename, whiten):
   sig_X = np.zeros(X.shape[1])
   L = np.zeros((X.shape[1],X.shape[1]))
   if whiten :
-    groups, _ = yahoo_common.load_group()
-    for i in range(yahoo_common.n_group_splits) :
-      gids = set(groups[i])
-      for _, gid in enumerate(gids) :
-        selected = [ x_idx for x_idx, g in enumerate(groups[i]) if g==gid ]
-        X_group = X[:, selected]
-        M = X_group.T.dot(X_group) / X_group.shape[0]
-        M = (M + M.T) / 2
-        M_diag = np.diag(M)
-        eps = 1
-        if np.nonzero(M_diag)[0].shape[0] > 0 :
-          eps = np.min(M_diag[np.nonzero(M_diag)])
-        eps *= 1e-4
-        M = M + np.eye(M.shape[0]) * eps 
-        L_group = sqrtm(inv(M))
-        selected = np.array(selected)
-        L[selected[:, np.newaxis], selected] = L_group.real
-    
-    L = L.T
-    X = X.dot(L)
+    m_X = np.mean(X, axis=0)
+    X = X - m_X
+    C = np.dot(X.T, X) / X.shape[0]
+    C = (C + C.T) / 2.0
+    d, V = np.linalg.eigh(C)
+    d = np.maximum(d, 0.0)
+    D = np.diag(1.0 / np.sqrt(d + 1e-18))
+    L = np.dot(np.dot(V, D), V.T)
+    X = np.dot(X, L)
   else:
     m_X = np.mean(X, axis=0)
     sig_X=np.std(X, axis=0)

@@ -1,0 +1,369 @@
+--------------------------------
+Lambda experiment on yahoo Wed May 14 01:14:04 EDT 2014
+python yahoo.py 5 1e-5
+ERROR: Couldn't find CPLEX
+python yahoo.py 5 1e-5
+ERROR: Couldn't find CPLEX
+python yahoo.py 10 1e-5
+ERROR: Couldn't find CPLEX
+python yahoo.py 10 1e-5
+ERROR: Couldn't find CPLEX
+python yahoo.py 15 1e-5
+ERROR: Couldn't find CPLEX
+python yahoo.py 15 1e-5
+ERROR: Couldn't find CPLEX
+python yahoo.py 20 1e-5
+python yahoo.py 20 1e-5
+ERROR: Couldn't find CPLEX
+--------------------------------
+Lambda experiment on yahoo Wed May 14 01:14:42 EDT 2014
+python yahoo.py 1 5 1e-5
+ERROR: Couldn't find CPLEX
+Exited with no group selected on iteration 113
+Forward Reg. total time 130.801851
+Exited with no group selected on iteration 138
+Forward Reg. on features total time 802.675402
+OMP total time 7.226035
+OMP total time 6.331814
+OMP total time 6.825463
+python yahoo.py 2 5 1e-5
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 181.738571
+Forward Reg. on features total time 806.829155
+OMP total time 7.158739
+OMP total time 6.324160
+OMP total time 6.924230
+python yahoo.py 1 10 1e-5
+ERROR: Couldn't find CPLEX
+Exited with no group selected on iteration 62
+Forward Reg. total time 40.306889
+Forward Reg. on features total time 431.649457
+OMP total time 3.527708
+OMP total time 3.279233
+OMP total time 3.449785
+python yahoo.py 2 10 1e-5
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 55.465048
+Forward Reg. on features total time 433.926223
+OMP total time 3.639592
+OMP total time 3.422806
+OMP total time 3.671906
+python yahoo.py 1 15 1e-5
+ERROR: Couldn't find CPLEX
+Exited with no group selected on iteration 43
+Forward Reg. total time 18.879963
+Forward Reg. on features total time 287.783476
+OMP total time 2.416327
+OMP total time 2.220128
+OMP total time 2.345983
+python yahoo.py 2 15 1e-5
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 25.710656
+Forward Reg. on features total time 287.556498
+OMP total time 2.446193
+OMP total time 2.282669
+OMP total time 2.385974
+python yahoo.py 1 20 1e-5
+ERROR: Couldn't find CPLEX
+Exited with no group selected on iteration 34
+Forward Reg. total time 11.718936
+Forward Reg. on features total time 212.884131
+OMP total time 1.753440
+OMP total time 1.687909
+OMP total time 1.702227
+python yahoo.py 2 20 1e-5
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 15.534980
+Forward Reg. on features total time 208.872274
+OMP total time 1.875969
+OMP total time 1.753038
+OMP total time 1.826678
+--------------------------------
+Lambda experiment on yahoo Wed May 14 13:47:32 EDT 2014
+python yahoo.py 1 5 1e-5
+ERROR: Couldn't find CPLEX
+python yahoo.py 2 5 1e-5
+ERROR: Couldn't find CPLEX
+python yahoo.py 1 10 1e-5
+ERROR: Couldn't find CPLEX
+python yahoo.py 2 10 1e-5
+ERROR: Couldn't find CPLEX
+python yahoo.py 1 15 1e-5
+ERROR: Couldn't find CPLEX
+python yahoo.py 2 15 1e-5
+ERROR: Couldn't find CPLEX
+python yahoo.py 1 20 1e-5
+python yahoo.py 2 20 1e-5
+--------------------------------
+Lambda experiment on yahoo Wed May 14 13:48:52 EDT 2014
+python yahoo.py 1 5 1e-5
+ERROR: Couldn't find CPLEX
+Exited with no group selected on iteration 109
+Forward Reg. total time 132.293583
+Exited with no group selected on iteration 109
+Forward Reg. on features total time 573.282088
+Exited with no group selected on iteration 109
+OMP total time 3.090396
+Exited with no feature selected on iteration 109
+OMP total time 2.460518
+Exited with no group selected on iteration 109
+OMP total time 2.722411
+python yahoo.py 2 5 1e-5
+ERROR: Couldn't find CPLEX
+Exited with no group selected on iteration 142
+Forward Reg. total time 184.084969
+Exited with no group selected on iteration 143
+Forward Reg. on features total time 888.509843
+Exited with no group selected on iteration 142
+OMP total time 7.526508
+Exited with no feature selected on iteration 142
+OMP total time 6.289551
+Exited with no group selected on iteration 142
+OMP total time 6.881178
+python yahoo.py 1 10 1e-5
+ERROR: Couldn't find CPLEX
+Exited with no group selected on iteration 59
+Forward Reg. total time 43.351891
+Exited with no group selected on iteration 58
+Forward Reg. on features total time 330.591555
+Exited with no group selected on iteration 58
+OMP total time 1.853890
+Exited with no feature selected on iteration 58
+OMP total time 1.511832
+Exited with no group selected on iteration 58
+OMP total time 1.679376
+python yahoo.py 2 10 1e-5
+ERROR: Couldn't find CPLEX
+Exited with no group selected on iteration 76
+Forward Reg. total time 62.244636
+Exited with no group selected on iteration 75
+Forward Reg. on features total time 465.482715
+Exited with no group selected on iteration 75
+OMP total time 4.016582
+Exited with no feature selected on iteration 75
+OMP total time 3.465942
+Exited with no group selected on iteration 75
+OMP total time 3.828461
+python yahoo.py 1 15 1e-5
+ERROR: Couldn't find CPLEX
+Exited with no group selected on iteration 42
+Forward Reg. total time 23.395732
+Exited with no group selected on iteration 41
+Forward Reg. on features total time 230.323833
+Exited with no group selected on iteration 41
+OMP total time 1.329726
+Exited with no feature selected on iteration 41
+OMP total time 1.089847
+Exited with no group selected on iteration 41
+OMP total time 1.253938
+python yahoo.py 2 15 1e-5
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 30.339175
+Forward Reg. on features total time 338.329969
+OMP total time 2.990130
+OMP total time 2.531171
+OMP total time 2.809710
+python yahoo.py 1 20 1e-5
+ERROR: Couldn't find CPLEX
+Exited with no group selected on iteration 32
+Forward Reg. total time 12.856198
+Exited with no group selected on iteration 32
+Forward Reg. on features total time 178.971062
+Exited with no group selected on iteration 31
+OMP total time 0.844712
+Exited with no feature selected on iteration 31
+OMP total time 0.744761
+Exited with no group selected on iteration 31
+OMP total time 0.825986
+python yahoo.py 2 20 1e-5
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 16.238247
+Forward Reg. on features total time 234.643149
+OMP total time 2.203731
+OMP total time 1.926274
+OMP total time 2.053238
+--------------------------------
+Lambda experiment on yahoo Wed May 14 18:34:46 EDT 2014
+python yahoo_classify.py yahoo_data/set1.test.txt 1 5 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set1.model.group0.size5.lam0.000010.no_whiten.npz
+python yahoo_classify.py yahoo_data/set2.test.txt 2 5 1e-5
+ERROR: Couldn't find CPLEX
+--------------------------------
+Lambda experiment on yahoo Wed May 14 18:38:20 EDT 2014
+python yahoo.py 1 5 1e-5
+ERROR: Couldn't find CPLEX
+python yahoo.py 2 5 1e-5
+python yahoo.py 1 10 1e-5
+python yahoo.py 2 10 1e-5
+ERROR: Couldn't find CPLEX
+python yahoo.py 1 15 1e-5
+python yahoo.py 2 15 1e-5
+python yahoo.py 1 20 1e-5
+python yahoo.py 2 20 1e-5
+--------------------------------
+Lambda experiment on yahoo Wed May 14 18:41:09 EDT 2014
+python yahoo.py 1 5 1e-5
+ERROR: Couldn't find CPLEX
+Exited with no group selected on iteration 111
+Forward Reg. total time 139.768233
+Exited with no group selected on iteration 110
+Forward Reg. on features total time 593.896977
+Exited with no group selected on iteration 109
+OMP total time 3.479235
+Exited with no feature selected on iteration 109
+OMP total time 2.644059
+Exited with no group selected on iteration 109
+OMP total time 2.957191
+python yahoo.py 2 5 1e-5
+ERROR: Couldn't find CPLEX
+Exited with no group selected on iteration 144
+Forward Reg. total time 201.773641
+Exited with no group selected on iteration 142
+Forward Reg. on features total time 884.703360
+Exited with no group selected on iteration 142
+OMP total time 7.628237
+Exited with no feature selected on iteration 142
+OMP total time 6.315050
+Exited with no group selected on iteration 142
+OMP total time 6.429323
+python yahoo.py 1 10 1e-5
+ERROR: Couldn't find CPLEX
+Exited with no group selected on iteration 61
+Forward Reg. total time 40.707357
+Exited with no group selected on iteration 61
+Forward Reg. on features total time 356.632152
+Exited with no group selected on iteration 58
+OMP total time 1.931393
+Exited with no feature selected on iteration 58
+OMP total time 1.364300
+Exited with no group selected on iteration 58
+OMP total time 1.554882
+python yahoo.py 2 10 1e-5
+ERROR: Couldn't find CPLEX
+Exited with no group selected on iteration 76
+Forward Reg. total time 62.392910
+Exited with no group selected on iteration 75
+Forward Reg. on features total time 455.804725
+Exited with no group selected on iteration 75
+OMP total time 3.767930
+Exited with no feature selected on iteration 75
+OMP total time 3.287383
+Exited with no group selected on iteration 75
+OMP total time 3.510489
+python yahoo.py 1 15 1e-5
+ERROR: Couldn't find CPLEX
+Exited with no group selected on iteration 42
+Forward Reg. total time 17.593379
+Exited with no group selected on iteration 46
+Forward Reg. on features total time 262.354345
+Exited with no group selected on iteration 41
+OMP total time 1.173324
+Exited with no feature selected on iteration 41
+OMP total time 0.945606
+Exited with no group selected on iteration 41
+OMP total time 1.067572
+python yahoo.py 2 15 1e-5
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 28.003531
+Forward Reg. on features total time 308.744081
+OMP total time 2.447569
+OMP total time 2.170959
+OMP total time 2.407668
+python yahoo.py 1 20 1e-5
+ERROR: Couldn't find CPLEX
+Exited with no group selected on iteration 32
+Forward Reg. total time 10.183140
+Exited with no group selected on iteration 32
+Forward Reg. on features total time 150.283288
+Exited with no group selected on iteration 31
+OMP total time 0.729687
+Exited with no feature selected on iteration 31
+OMP total time 0.665976
+Exited with no group selected on iteration 31
+OMP total time 0.692361
+python yahoo.py 2 20 1e-5
+ERROR: Couldn't find CPLEX
+Forward Reg. total time 14.586593
+Forward Reg. on features total time 198.800694
+OMP total time 1.802591
+OMP total time 1.687924
+OMP total time 1.793824
+--------------------------------
+Lambda experiment on yahoo Wed May 14 20:01:24 EDT 2014
+python yahoo_classify.py yahoo_data/set1.test.txt 1 5 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set1.model.group0.size5.lam0.000010.no_whiten.npz
+python yahoo_classify.py yahoo_data/set2.test.txt 2 5 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set2.model.group0.size5.lam0.000010.no_whiten.npz
+python yahoo_classify.py yahoo_data/set1.test.txt 1 10 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set1.model.group0.size10.lam0.000010.no_whiten.npz
+python yahoo_classify.py yahoo_data/set2.test.txt 2 10 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set2.model.group0.size10.lam0.000010.no_whiten.npz
+python yahoo_classify.py yahoo_data/set1.test.txt 1 15 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set1.model.group0.size15.lam0.000010.no_whiten.npz
+python yahoo_classify.py yahoo_data/set2.test.txt 2 15 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set2.model.group0.size15.lam0.000010.no_whiten.npz
+python yahoo_classify.py yahoo_data/set1.test.txt 1 20 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set1.model.group0.size20.lam0.000010.no_whiten.npz
+python yahoo_classify.py yahoo_data/set2.test.txt 2 20 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set2.model.group0.size20.lam0.000010.no_whiten.npz
+--------------------------------
+Lambda experiment on yahoo Wed May 14 22:21:16 EDT 2014
+python yahoo_classify.py yahoo_data/set1.test.txt 1 5 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set1.model.group0.size5.lam0.000010.npz
+python yahoo_classify.py yahoo_data/set2.test.txt 2 5 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set2.model.group0.size5.lam0.000010.npz
+python yahoo_classify.py yahoo_data/set1.test.txt 1 10 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set1.model.group0.size10.lam0.000010.npz
+python yahoo_classify.py yahoo_data/set2.test.txt 2 10 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set2.model.group0.size10.lam0.000010.npz
+python yahoo_classify.py yahoo_data/set1.test.txt 1 15 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set1.model.group0.size15.lam0.000010.npz
+python yahoo_classify.py yahoo_data/set2.test.txt 2 15 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set2.model.group0.size15.lam0.000010.npz
+python yahoo_classify.py yahoo_data/set1.test.txt 1 20 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set1.model.group0.size20.lam0.000010.npz
+python yahoo_classify.py yahoo_data/set2.test.txt 2 20 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set2.model.group0.size20.lam0.000010.npz
+--------------------------------
+Lambda experiment on yahoo Wed May 14 22:49:08 EDT 2014
+python yahoo_classify.py yahoo_data/set1.test.txt 1 5 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set1.model.group0.size5.lam0.000010.no_whiten.eq_costs.npz
+python yahoo_classify.py yahoo_data/set2.test.txt 2 5 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set2.model.group0.size5.lam0.000010.no_whiten.eq_costs.npz
+python yahoo_classify.py yahoo_data/set1.test.txt 1 10 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set1.model.group0.size10.lam0.000010.no_whiten.eq_costs.npz
+python yahoo_classify.py yahoo_data/set2.test.txt 2 10 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set2.model.group0.size10.lam0.000010.no_whiten.eq_costs.npz
+python yahoo_classify.py yahoo_data/set1.test.txt 1 15 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set1.model.group0.size15.lam0.000010.no_whiten.eq_costs.npz
+python yahoo_classify.py yahoo_data/set2.test.txt 2 15 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set2.model.group0.size15.lam0.000010.no_whiten.eq_costs.npz
+python yahoo_classify.py yahoo_data/set1.test.txt 1 20 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set1.model.group0.size20.lam0.000010.no_whiten.eq_costs.npz
+python yahoo_classify.py yahoo_data/set2.test.txt 2 20 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set2.model.group0.size20.lam0.000010.no_whiten.eq_costs.npz

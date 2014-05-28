@@ -92,24 +92,17 @@ def parse(filenames, whiten):
     print np.linalg.norm(b2 - b)
     print np.linalg.norm(C2 - C)
 
-  #Normalize
+  # Whiten all feature
   L = np.zeros((grain_common.feat_dim, grain_common.feat_dim))
   if whiten :
-    groups, _ = grain_common.load_group()
-    gids = set(groups)
-    for _, gid in enumerate(gids) :
-      selected = [ x_idx for x_idx, g in enumerate(groups) if g==gid ]
-      M = C[selected[:, np.newaxis], selected] 
-      M_diag = np.diag(M)
-      eps = 1
-      if np.nonzero(M_diag)[0].shape[0] > 0 :
-        eps = np.min(M_diag[np.nonzero(M_diag)])
-      eps *= 1e-4
-      M = M + np.eye(M.shape[0]) * eps 
-      L_group = sqrtm(inv(M))
-      selected = np.array(selected)
-      L[selected[:, np.newaxis], selected] = L_group.real
-    L = L.T
+    d, V = np.linalg.eigh(C)
+    d = np.maximum(d, 0)
+    D = np.diag(1 / np.sqrt((d + 1e-18)))
+    L = np.dot(V, np.dot(D, V.T))
+
+    b = np.dot(L.T, b)
+    C = np.dot(L.T, np.dot(C, L))
+
   return L, m_X, m_Y, std_X, b, C
 
 #if __name__ == "__main__":

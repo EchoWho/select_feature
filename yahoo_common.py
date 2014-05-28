@@ -8,36 +8,44 @@ root_dir='/home/hanzhang/code/speedboost/select_feature'
 data_dir='%s/yahoo_data' % (root_dir)
 result_dir='%s/yahoo_results' % (root_dir)
 
-def param_str() :
-  if not whiten :
-    return 'no_whiten.'
-  return ''
+def param_str(do_whiten=whiten, ignore_cost=False) :
+  s = ''
+  if not do_whiten :
+    s += 'no_whiten.'
+  if ignore_cost :
+    s += 'eq_costs.'
+  return s
 
 def filename_data(set_id, mode) :
   """ Training data filename """
   return '%s/set%d.%s.txt' % (data_dir, set_id, mode)
 
-def filename_preprocess_info(set_id) : 
+def filename_preprocess_info(set_id, do_whiten=whiten) : 
   """ 
     Filename containing information needed for preprocess data, 
     and (b, C) for training 
   """
-  return '%s/yahoo.set%d.train.bC.%snpz' % (data_dir, set_id, param_str())
+  return '%s/yahoo.set%d.train.bC.%snpz' % (data_dir, set_id, param_str(do_whiten))
  
-def filename_model(set_id, partition_id) :
+def filename_model(set_id, partition_id, group_size=5, l2_lam=1e-6, do_whiten=whiten,
+  ignore_cost=False) :
   """ Filename for model trained by feature selection """
-  return '%s/set%d.model.group%d.%snpz' % (result_dir, set_id, partition_id, param_str())
+  return '%s/set%d.model.group%d.size%d.lam%f.%snpz' % (result_dir, 
+    set_id, partition_id, group_size, l2_lam, param_str(do_whiten, ignore_cost))
 
-def filename_budget_vs_loss(set_id, partition_id) :
+def filename_budget_vs_loss(set_id, partition_id, group_size=5, l2_lam=1e-6, do_whiten=whiten,
+  ignore_cost=False) :
   """ Filenmae for final results """
-  return '%s/set%d.budget_vs_loss.group%d.%snpz' % (result_dir, set_id, partition_id, param_str())
+  return '%s/set%d.budget_vs_loss.group%d.size%d.lam%f.%snpz' % (result_dir, 
+    set_id, partition_id, group_size, l2_lam, param_str(do_whiten, ignore_cost))
 
-def preprocess_X(X_raw, Y_raw, set_id) :
-  filename = filename_preprocess_info(set_id)
+def preprocess_X(X_raw, Y_raw, set_id, do_whiten=whiten) :
+  filename = filename_preprocess_info(set_id, do_whiten)
   d = np.load(filename)
   if whiten :
     L_whiten = d['L_whiten']
-    X = X_raw.dot(L_whiten)
+    X_mean = d['X_mean']
+    X = np.dot(X_raw - X_mean, L_whiten)
   else :
     X_mean = d['X_mean']
     X_std = d['X_std']
@@ -46,8 +54,8 @@ def preprocess_X(X_raw, Y_raw, set_id) :
   d.close()
   return X, Y
 
-def load_group() :
-  d_groups = np.load('%s/yahoo.groups.npz' % (data_dir))
+def load_group(group_size=10) :
+  d_groups = np.load('%s/yahoo.groups.size.%d.npz' % (data_dir, group_size))
   groups = d_groups['groups']
   costs = d_groups['costs']
   d_groups.close()
@@ -72,3 +80,43 @@ def load_raw_data(filename) :
   Y = np.array(Y)
   fin.close()
   return X, Y
+
+def compute_stopping_cost(alpha, d):
+  d = d['OMP']
+  score = d['score']
+  cost = d['cost']
+  alpha_score = score[np.sum( cost < 1e8 ) - 1] * alpha
+  return cost[np.sum( score <= alpha_score ) - 1]
+
+def compute_auc(costs, losses, stopping_cost):
+  auc = 0
+  for i in range(len(costs) - 1):
+    if costs[i] >= stopping_cost:
+      break
+    if costs[i + 1] > stopping_cost:
+      a = (stopping_cost - costs[i]) / 2.0 / (costs[i+1] - costs[i])
+      auc += (losses[i+1] * a   + losses[i] * (1-a) ) * (stopping_cost - costs[i])
+    else:
+      auc += (costs[i + 1] - costs[i]) * (losses[i+1] + losses[i]) / 2.0
+  auc /= stopping_cost * losses[0]
+  return 1 - auc
+
+def compute_oracle(costs, losses):
+  c = []
+  l = []
+  for i in range(len(costs) - 1):
+    c.append(costs[i + 1] - costs[i])
+    l.append(losses[i] - losses[i + 1])
+  l = np.array(l)
+  c = np.array(c)
+  l_over_c = 0.0 - l / c
+  sorted_idx = sorted(range(len(l)), key=lambda x : l_over_c[x])
+  oracle_costs = [costs[0]]
+  oracle_losses = [losses[0]]
+  for _, i in enumerate(sorted_idx):
+    oracle_costs.append(oracle_costs[-1] + c[i])
+    oracle_losses.append(oracle_losses[-1] - l[i])
+  return np.array(oracle_costs), np.array(oracle_losses)
+    
+
+
