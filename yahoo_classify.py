@@ -8,13 +8,13 @@ if __name__ == "__main__":
 
   filename = sys.argv[1]
   #model_bC_name = sys.argv[2]
-  methods = ['OMP' ] #, 'OMP NOINV', 'OMP SINGLE', 'FR', 'FR SINGLE']
+  methods = ['OMP', 'OMP NOINV', 'OMP SINGLE', 'FR', 'FR SINGLE']
   set_id = int(sys.argv[2])
   group_size = int(sys.argv[3])
   l2_lam = np.float64(sys.argv[4])
 
   whiten = yahoo_common.whiten
-  ignore_cost = True # This is true if we set all groups with equal cost.
+  ignore_cost = False # This is true if we set all groups with equal cost.
 
   X_raw, Y = yahoo_common.load_raw_data(filename)
   X, Y = yahoo_common.preprocess_X(X_raw, Y, set_id, whiten)

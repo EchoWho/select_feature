@@ -15,7 +15,12 @@ partition_id = 0
 l2_lam = 1e-5
 
 #Compute stopping cost
-alpha = 0.90
+alpha = 0.975
+oracle_str = 'FR'
+if exp_id > 5:
+  print "change oracle str to OMP and perfrom exp id 1"
+  exp_id = 1
+  oracle_str = 'OMP'
 
 if exp_id==0:
   pass
@@ -37,7 +42,7 @@ elif exp_id == 1:
                                                   group_size, l2_lam, False))
     stopping_cost = yahoo_common.compute_stopping_cost(alpha, d_model)
 
-    oracle_costs, oracle_losses = compute_oracle(L_no_whiten['FR'][0], L_no_whiten['FR'][1])
+    oracle_costs, oracle_losses = compute_oracle(L_no_whiten[oracle_str][0], L_no_whiten[oracle_str][1])
     auc['Oracle'] += compute_auc(oracle_costs, oracle_losses, stopping_cost)
     auc['OMP'] += compute_auc(L_no_whiten['OMP'][0], L_no_whiten['OMP'][1],
                               stopping_cost)
@@ -77,6 +82,7 @@ elif exp_id == 2:
 elif exp_id == 3:
   methods = ['OMP', 'OMP SINGLE', 'FR', 'FR SINGLE', 'Oracle']
   auc = dict(zip(methods, np.zeros(len(methods))))
+  auc['Lasso'] = 0
   for _, set_id in enumerate(vec_set_ids):
     filename = yahoo_common.filename_budget_vs_loss(set_id, partition_id, 
                                                     group_size, l2_lam, False)
@@ -94,8 +100,12 @@ elif exp_id == 3:
         auc['Oracle'] += compute_auc(oracle_costs, oracle_losses, stopping_cost)
       else:
         auc[method] += compute_auc(L[method][0], L[method][1], stopping_cost)
+    d_lasso = np.load('yahoo_results/spams_%d_%d.npz', set_id, group_size)
+    auc['Lasso'] += compute_auc(d_lasso['budget'], d_lasso['loss'])
+
   for _, method in enumerate(methods):
     auc[method] /= np.float64(len(vec_set_ids))
+  auc['Lasso'] /= np.float64(len(vec_set_ids))
 
 elif exp_id == 4:
   pass

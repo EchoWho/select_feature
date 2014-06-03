@@ -1,4 +1,5 @@
 import numpy as np
+import scipy.sparse as ssp
 
 n_group_splits=1
 feat_dim=700
@@ -81,6 +82,43 @@ def load_raw_data(filename) :
   fin.close()
   return X, Y
 
+def convert_to_spams_format(X, Y, groups):
+  # X, Y are preprocessed
+  group_names = sorted(list(set(groups)))
+  selected_feats = [np.array([], dtype=np.int)]
+  selected_feats += [ np.nonzero(groups == g)[0] for g in group_names ]
+  selected_feats = np.hstack(selected_feats)
+  X = np.asfortranarray(X[:, selected_feats])
+  Y = np.asfortranarray(Y[:, np.newaxis])
+  return X, Y
+
+def create_spams_params(groups, costs):
+  spams_params = {'numThreads' : -1,'verbose' : False,
+         'lambda1' : 0.001, 'it0' : 10, 'max_it' : 500,
+         'L0' : 0.1, 'tol' : 1e-5, 'intercept' : False,
+         'pos' : False}
+  group_names = sorted(list(set(groups)))
+  nbr_groups = len(group_names)
+  group_sizes = [ len(np.nonzero(groups == g)[0]) for g in group_names ]
+  eta_g = [ costs[g] for g in group_names ]
+  eta_g = np.array([1e-9] + eta_g)
+  group_sizes = [0] + group_sizes
+  group_own = np.cumsum([0] + list(group_sizes)[:-1])
+  group_own = group_own.astype(np.int32)
+  group_sizes = np.array(group_sizes, dtype=np.int32)
+  
+  spams_groups = np.zeros((nbr_groups + 1, nbr_groups+1), dtype=np.bool)
+  spams_groups[1:, 0] = 1
+  spams_groups = ssp.csc_matrix(spams_groups, dtype=np.bool)
+
+  spams_tree = {'eta_g' : eta_g , 'groups' : spams_groups, 
+    'own_variables' : group_own, 'N_own_variables' : group_sizes }
+  spams_params['compute_gram'] = True
+  spams_params['loss'] = 'square'
+  spams_params['regul'] = 'tree-l2'
+  
+  return spams_tree, spams_params
+
 def compute_stopping_cost(alpha, d):
   d = d['OMP']
   score = d['score']
@@ -117,6 +155,3 @@ def compute_oracle(costs, losses):
     oracle_costs.append(oracle_costs[-1] + c[i])
     oracle_losses.append(oracle_losses[-1] - l[i])
   return np.array(oracle_costs), np.array(oracle_losses)
-    
-
-

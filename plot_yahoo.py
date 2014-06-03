@@ -7,7 +7,7 @@ import sys, os
 import bisect 
 
 
-min_performance = 0.85
+min_performance = 0.16
 
 def plot_batch(L, 
                x_limit,
@@ -23,25 +23,28 @@ def plot_batch(L,
   for name, color, marker, vec_x, vec_y in zip(names, colors, markers, vec_vec_x, vec_vec_y) :
     len_limit = bisect.bisect_right(vec_x, x_limit) 
     for i in range(len(vec_y)):
-      if vec_y[i] < min_performance:
+      if vec_y[0] - vec_y[i] >= min_performance:
         break
-    plt.plot(vec_x[i:len_limit], vec_y[i:len_limit], 
+    plt.plot(vec_x[i:len_limit], 
+             (vec_y[0] - vec_y)[i:len_limit], 
              color=color, linewidth=2, linestyle=style, marker=marker,
              markerfacecolor='none', markersize=7.0, markeredgewidth=1.5,
              markeredgecolor=color, markevery=markevery)
 
 
 def plot_oracle(L, budget_limit):
-  oracle_costs, oracle_losses = compute_oracle(L['FR'][0], L['FR'][1])
-  nbr_groups = bisect.bisect_right(oracle_costs, budget_limit) 
-  color = 'k'
-  for i, loss in enumerate(oracle_losses):
-    if loss < min_performance:
-      break
-  plt.plot(oracle_costs[i:nbr_groups], oracle_losses[i:nbr_groups],
-           color=color, linewidth=2, linestyle='-', marker='+',
-           markerfacecolor='none', markersize=7.0, markeredgewidth=1.5,
-           markeredgecolor=color)
+  colors = ['k', 'm']
+  for idx, oracle_str in enumerate(['FR', 'OMP']):
+    oracle_costs, oracle_losses = compute_oracle(L[oracle_str][0], L[oracle_str][1])
+    nbr_groups = bisect.bisect_right(oracle_costs, budget_limit) 
+    for i, loss in enumerate(oracle_losses):
+      if oracle_losses[0] - loss >= min_performance:
+        break
+    plt.plot(oracle_costs[i:nbr_groups], 
+             (oracle_losses[0] - oracle_losses)[i:nbr_groups],
+             color=colors[idx], linewidth=2, linestyle='-', marker='+',
+             markerfacecolor='none', markersize=7.0, markeredgewidth=1.5,
+             markeredgecolor=colors[idx], markevery=5)
 
 
 set_id = int(sys.argv[1])
@@ -107,7 +110,7 @@ elif exp_id == 1: #Whiten
   plt.legend(('CS-G-OMP', 'No Whiten'),
              loc='lower right', prop={'size':25})
 
-elif exp_id==2: # cost / no cost
+elif exp_id == 2: # cost / no cost
   filename = yahoo_common.filename_budget_vs_loss(set_id, partition_id, 
                                                   group_size, l2_lam, False)
   d = np.load(filename)
@@ -123,6 +126,7 @@ elif exp_id==2: # cost / no cost
   nbr_groups = bisect.bisect_right(L_cost['OMP'][0], budget_limit) 
   color = 'g'
   start = 0
+  print L_cost['OMP'][1][0]
   plt.plot(L_cost['OMP'][0][start:nbr_groups], (L_cost['OMP'][1][0] -  L_cost['OMP'][1])[start:nbr_groups],
            color=color, linewidth=2, linestyle='-', marker='s',
            markerfacecolor='none', markersize=7.0, markeredgewidth=1.5,
@@ -139,47 +143,69 @@ elif exp_id==2: # cost / no cost
   plt.legend(('CS-G-OMP', 'G-OMP',), 
              loc='lower right', prop={'size':25})
 
-elif exp_id==3: # full house
+elif exp_id == 3: # full house
   filename = yahoo_common.filename_budget_vs_loss(set_id, partition_id, 
                                                   group_size, l2_lam, False)
   d = np.load(filename)
   L = d['L']
   L = L.item()
-  budget_limit = 5000 #group_size2budget_list[group_size] / 3.0
+  #budget_limit = group_size2budget_list[group_size] #group_size2budget_list[group_size] / 3.0
+  budget_limit = 5000
   plot_oracle(L, budget_limit)
-  plot_batch(L, budget_limit, ['FR', 'OMP'], 'rgb', 's+o^', '-')
-  plot_batch(L, budget_limit, ['FR SINGLE', 'OMP SINGLE'], 'rgb', '+o^', '--')
-  plot_batch(L, budget_limit, ['OMP NOINV'], 'b', '^', '-')
-  filename = yahoo_common.filename_budget_vs_loss(set_id, 
-                                                  partition_id, 
-                                                  group_size,
-                                                  l2_lam, False, True)
-  d = np.load(filename)
-  L_no_cost = d['L']
-  L_no_cost = L_no_cost.item()
-  plot_batch(L_no_cost, budget_limit, ['OMP'], 'y', '^', '-')
+  plot_batch(L, budget_limit, ['FR', 'OMP'], 'rgb', 's+o^', '-', markevery=5)
+  plot_batch(L, budget_limit, ['FR SINGLE', 'OMP SINGLE'], 'rgb', '+o^', '--', markevery=5)
 
-  #plt.legend(('FR - Grouped', 'OMP - Grouped', 'FR - Single', 
-  #              'OMP - Single', 'Oracle'), loc='upper right', prop={'size':18})
+  d_lasso = np.load('yahoo_results/spams_%d_%d.npz' % (set_id, group_size))
+  nbr_groups = bisect.bisect_right(d_lasso['budget'], budget_limit) 
+  color = 'b'
+  print L['OMP'][1][0]
+  print d_lasso['loss']
+  min_performance = 0.15
+  for start in range(len(d_lasso['budget'])):
+    if L['OMP'][1][0] -  d_lasso['loss'][start] > min_performance:
+      break
+
+  plt.plot(d_lasso['budget'][start:nbr_groups], (L['OMP'][1][0] - d_lasso['loss'])[start:nbr_groups],
+           color=color, linewidth=2, linestyle='-', marker='o',
+           markerfacecolor='none', markersize=7.0, markeredgewidth=1.5,
+           markeredgecolor=color)
+
+
+  plt.legend(('FR Oracle', 'OMP Oracle', 'CS-G-FR', 'CS-G-OMP', 
+              'CS-G-FR-Single', 
+              'CS-G-OMP-Single', 'Sparse'), loc='lower right', prop={'size':20})
 #  plt.xlabel('Feature Cost', fontsize=28)
 #  plt.ylabel('Reconstruction Error', fontsize=28)
 
 elif exp_id==4: # Speed up
-  methods = ['OMP', 'OMP SINGLE', 'FR', 'FR SINGLE']
+  methods = ['FR', 'OMP']
+  colors='rgb'
+  markers='s+o^'
+  linestyle = '-'
   filename = yahoo_common.filename_model(set_id, partition_id, 
                                          group_size, l2_lam, False)
   d = np.load(filename)
-  L = []
-  for _, method in enumerate(methods):
+  for idx, method in enumerate(methods):
     d_method = d[method]
-    L.append((range(d_method['time'].shape[0]), d_method['time']))
-  L = dict(zip(methods, L))
-  nbr_groups = 1e8
-  plot_batch(L, nbr_groups, ['FR', 'OMP'], 'rgb', 's+o^', '-')
-  #plot_batch(L, nbr_groups, ['FR SINGLE', 'OMP SINGLE'], 'rgb', '+o^', '--')
-  #plt.legend(('FR - Grouped', 'OMP - Grouped', 'FR - Single', 
-  #              'OMP - Single'), loc='upper left', prop={'size':18})
-  
+    nbr_groups = bisect.bisect_right(d_method['cost'], 1e8) 
+    plt.plot(range(nbr_groups), 
+             d_method['time'][:nbr_groups], 
+             color=colors[idx], linewidth=2, linestyle=linestyle, marker=markers[idx],
+             markerfacecolor='none', markersize=7.0, markeredgewidth=1.5,
+             markeredgecolor=colors[idx])
+
+  plt.legend(('CS-G-FR', 'CS-G-OMP'), loc='upper left', prop={'size':25})
+  plt.xlabel('Number of Selected Groups', fontsize=32)
+  plt.ylabel('Training Time (sec)', fontsize=32)
+  ax = plt.gca()
+  ax.tick_params(axis='x', labelsize=30)
+  ax.tick_params(axis='y', labelsize=30)
+  start, end = ax.get_xlim()
+  ax.xaxis.set_ticks(np.arange(start, end, (int((end - start ) / 5.1))))
+  start, end = ax.get_ylim()
+  ax.yaxis.set_ticks(np.arange(start, end, (int((end - start ) / 5.1))))
+
+    
   total_spd_up = 0
   print "%d %d" % (len(d['FR']['time']), len(d['OMP']['time']))
   for i in range(min(len(d['FR']['time']), len(d['OMP']['time']))):
@@ -190,6 +216,15 @@ elif exp_id==4: # Speed up
   total_spd_up /= np.float64(len(d['FR']['time']))
   print total_spd_up
   print d['FR']['time'][-1] / d['OMP']['time'][-1]
+  
+  plt.savefig('yahoo_results/set%d_size%d_exp%d.png' % (set_id, group_size, exp_id),
+              bbox_inches='tight',
+              dpi=plt.gcf().dpi)
+  
+  plt.show()
+  exit()
+  print "meow"
+
   
 
 #  plt.xlabel('Number of Feature Groups Selected', fontsize=28)

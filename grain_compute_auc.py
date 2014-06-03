@@ -10,7 +10,12 @@ exp_id = int(sys.argv[1])
 
 vec_set_ids = [1, 2, 3, 4, 5]
 
-alpha = 0.95
+alpha = 0.97
+oracle_str = 'FR'
+if exp_id > 5:
+  print "change oracle str to OMP and perfrom exp id 1"
+  exp_id = 1
+  oracle_str = 'OMP'
 
 l2_lam = 1e-7
 if exp_id==0:
@@ -27,7 +32,8 @@ elif exp_id == 1:
     L = d['L']
     L_whiten = L.item()
 
-    oracle_cost, oracle_losses = compute_oracle(L_no_whiten['FR'][0], L_no_whiten['FR'][1])
+    oracle_cost, oracle_losses = compute_oracle(L_no_whiten[oracle_str][0], 
+                L_no_whiten[oracle_str][1])
 
     d_model = np.load(grain_common.filename_model(set_id, l2_lam, False))
     stopping_cost = compute_stopping_cost(alpha, d_model)
@@ -69,6 +75,7 @@ elif exp_id == 2:
 elif exp_id == 3:
   methods = ['OMP', 'OMP SINGLE', 'FR', 'FR SINGLE', 'Oracle']
   auc = dict(zip(methods, np.zeros(len(methods))))
+  auc['Lasso'] = 0
   for _, set_id in enumerate(vec_set_ids):
     filename = grain_common.filename_budget_vs_loss(set_id, l2_lam, False)
     d = np.load(filename)
@@ -83,8 +90,13 @@ elif exp_id == 3:
         auc['Oracle'] += compute_auc(oracle_cost, oracle_losses, stopping_cost)
       else:
         auc[method] += compute_auc(L[method][0], L[method][1], stopping_cost)
+    
+    d_lasso = np.load('grain_results/spams_%d.npz', set_id)
+    auc['Lasso'] += compute_auc(d_lasso['budget'], d_lasso['loss'])
+    
   for _, method in enumerate(methods):
     auc[method] /= np.float64(len(vec_set_ids))
+  auc['Lasso'] /= np.float64(len(vec_set_ids))
 
 elif exp_id == 4:
   pass

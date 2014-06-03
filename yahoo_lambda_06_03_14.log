@@ -1,0 +1,52 @@
+--------------------------------
+Lambda experiment on yahoo Tue Jun  3 15:23:05 EDT 2014
+python yahoo_classify.py yahoo_data/set1.test.txt 1 5 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set1.model.group0.size5.lam0.000010.no_whiten.eq_costs.npz
+python yahoo_classify.py yahoo_data/set2.test.txt 2 5 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set2.model.group0.size5.lam0.000010.no_whiten.eq_costs.npz
+python yahoo_classify.py yahoo_data/set1.test.txt 1 10 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set1.model.group0.size10.lam0.000010.no_whiten.eq_costs.npz
+python yahoo_classify.py yahoo_data/set2.test.txt 2 10 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set2.model.group0.size10.lam0.000010.no_whiten.eq_costs.npz
+python yahoo_classify.py yahoo_data/set1.test.txt 1 15 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set1.model.group0.size15.lam0.000010.no_whiten.eq_costs.npz
+python yahoo_classify.py yahoo_data/set2.test.txt 2 15 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set2.model.group0.size15.lam0.000010.no_whiten.eq_costs.npz
+python yahoo_classify.py yahoo_data/set1.test.txt 1 20 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set1.model.group0.size20.lam0.000010.no_whiten.eq_costs.npz
+python yahoo_classify.py yahoo_data/set2.test.txt 2 20 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set2.model.group0.size20.lam0.000010.no_whiten.eq_costs.npz
+--------------------------------
+Lambda experiment on yahoo Tue Jun  3 15:47:37 EDT 2014
+python yahoo_classify.py yahoo_data/set1.test.txt 1 5 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set1.model.group0.size5.lam0.000010.no_whiten.npz
+python yahoo_classify.py yahoo_data/set2.test.txt 2 5 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set2.model.group0.size5.lam0.000010.no_whiten.npz
+python yahoo_classify.py yahoo_data/set1.test.txt 1 10 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set1.model.group0.size10.lam0.000010.no_whiten.npz
+python yahoo_classify.py yahoo_data/set2.test.txt 2 10 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set2.model.group0.size10.lam0.000010.no_whiten.npz
+python yahoo_classify.py yahoo_data/set1.test.txt 1 15 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set1.model.group0.size15.lam0.000010.no_whiten.npz
+python yahoo_classify.py yahoo_data/set2.test.txt 2 15 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set2.model.group0.size15.lam0.000010.no_whiten.npz
+python yahoo_classify.py yahoo_data/set1.test.txt 1 20 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set1.model.group0.size20.lam0.000010.no_whiten.npz
+python yahoo_classify.py yahoo_data/set2.test.txt 2 20 1e-5
+ERROR: Couldn't find CPLEX
+/home/hanzhang/code/speedboost/select_feature/yahoo_results/set2.model.group0.size20.lam0.000010.no_whiten.npz
