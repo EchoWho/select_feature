@@ -91,8 +91,8 @@ elif exp_id == 3:
       else:
         auc[method] += compute_auc(L[method][0], L[method][1], stopping_cost)
     
-    d_lasso = np.load('grain_results/spams_%d.npz', set_id)
-    auc['Lasso'] += compute_auc(d_lasso['budget'], d_lasso['loss'])
+    d_lasso = np.load('grain_results/spams_%d.npz' % (set_id))
+    auc['Lasso'] += compute_auc(d_lasso['budget'], d_lasso['loss'], stopping_cost)
     
   for _, method in enumerate(methods):
     auc[method] /= np.float64(len(vec_set_ids))

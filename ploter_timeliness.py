@@ -15,24 +15,22 @@ l2_lam = 1e-5
 d = np.load(yahoo_common.filename_model(set_id, partition_id, 
                                               group_size, l2_lam, False))
 d = d['OMP']
-score = d['score']
-cost = d['cost']
-final_idx = np.sum( cost < 1e8 ) - 1
-final_score = score[final_idx]
+score = d['score'][0:57]
+cost = d['cost'][0:57]
 #return cost[np.sum( score <= alpha_score ) - 1]
 
 
 plt.hold(True)
 alphas = [0.9, 0.95, 0.98, 0.99]
 for _, alpha in enumerate(alphas):
-  stopping_idx = np.sum( score <= alpha * final_score) - 1
+  stopping_idx = np.sum( score <= alpha * score[-1])
   stopping_cost = cost[stopping_idx]
 
   print "alpha %f ; stopping_cost %f" % (alpha, stopping_cost)
   
   vert_line = plt.plot([stopping_cost, stopping_cost], [0, score[stopping_idx]], linewidth=2) 
 
-plt.plot(cost[3:(final_idx + 1)], score[3:(final_idx + 1)], 
+plt.plot(cost[3:], score[3:], 
          linewidth=2)
 
 ax = plt.gca()

@@ -16,13 +16,13 @@ def spams_train(X, Y, groups, costs, lambda1 = 0.1):
 def load_data(set_id):
   groups, costs = grain_common.load_group()
 
-  filename = grain_common.filename_data(set_id, 'train')
+  train_set_id = set_id % 5 + 1
+  filename = grain_common.filename_data(train_set_id, 'train')
   X_raw, Y_raw = grain_common.load_raw_data(filename)
   X, Y = grain_common.preprocess_X(X_raw, Y_raw, set_id)
   X,Y = yahoo_common.convert_to_spams_format(X, Y, groups)
 
-  test_set_id = set_id % 5 + 1
-  filename = grain_common.filename_data( test_set_id, 'train')
+  filename = grain_common.filename_data(set_id, 'train')
   X_raw, Y_raw = grain_common.load_raw_data(filename)
   X_tes, Y_tes = grain_common.preprocess_X(X_raw, Y_raw, set_id)
   X_tes,Y_tes = yahoo_common.convert_to_spams_format(X_tes, Y_tes, groups)
@@ -64,6 +64,7 @@ def train_test_one(X,Y,X_tes,Y_tes,set_id, lam):
   (W, optim_info) = spams_train(X, Y, groups, costs, lam)
   loss = opt.loss(W[:,0], X_tes, Y_tes[:,0]) 
   budget = np.sum(costs[ list(set(sorted_groups[np.nonzero(W)[0]])) ])
+  np.savez('grain_results/spams_%d_lam%f.npz' % (set_id, lam), budget=budget, loss=loss)
   return loss, budget
 
 
@@ -72,5 +73,9 @@ if __name__ == "__main__":
   X, Y, X_tes, Y_tes = load_data(set_id)
   nbr_train = X.shape[0]
 
-  v_lams = np.array([ 1e4, 1e3, 1e2, 1, 1e-1, 1e-2 ]) * nbr_train
+  v_lams = np.array([ 1e3, 500, 1e2, 50, 25, 1e1, 6, 4, 3, 2.5, 2, 1.5, 1, 1e-1, 1e-2 ]) * nbr_train
   batch_all(X, Y, X_tes, Y_tes, set_id, v_lams)
+ # v_lams = np.array([ 2 ]) * nbr_train
+ # loss, budget = train_test_one(X,Y, X_tes,Y_tes, v_lams[0])
+ # print loss
+ # print budget

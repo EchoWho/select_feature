@@ -151,10 +151,19 @@ elif exp_id == 3:
   plot_batch(L, ['FR', 'OMP'], y_idx, 'rgb', 's+o^', '-', markevery=5)
   plot_batch(L, ['FR SINGLE', 'OMP SINGLE'], y_idx, 'rgb', '+o^', '--', markevery=5)
   
-  d_lasso = np.load('grain_results/spams_1.npz')
+  d_lasso = np.load('grain_results/spams_%d.npz' % (set_id))
   nbr_groups = bisect.bisect_right(d_lasso['budget'], budget_limit)
   color = 'b'
-  plt.plot(d_lasso['budget'], L['OMP'][1][0] - d_lasso['loss'],
+  min_performance = 0.020
+  for start in range(nbr_groups):
+    if (L['OMP'][1][0] - d_lasso['loss'][start]) > min_performance:
+      break
+  lasso_budget = d_lasso['budget'][start:nbr_groups] 
+  lasso_score = (L['OMP'][1][0] - d_lasso['loss'])[start:nbr_groups]
+  additional_loss = d_lasso['loss'][nbr_groups - 1] - (d_lasso['loss'][nbr_groups - 1] - d_lasso['loss'][nbr_groups] ) * budget_limit / (d_lasso['budget'][nbr_groups] - d_lasso['budget'][nbr_groups-1])
+  lasso_budget = list(lasso_budget) + [budget_limit]
+  lasso_score = list(lasso_score) + [L['OMP'][1][0] - additional_loss]
+  plt.plot(lasso_budget, lasso_score,
            color=color, linewidth=2, linestyle='-', marker='o',
            markerfacecolor='none', markersize=7.0, markeredgewidth=1.5,
            markeredgecolor=color)

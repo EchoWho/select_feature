@@ -23,7 +23,7 @@ final_score = score[final_idx]
 
 
 plt.hold(True)
-alphas = [0.9, 0.95, 0.97, 0.99]
+alphas = [0.9, 0.95, 0.96, 0.97, 0.98, 0.99]
 for _, alpha in enumerate(alphas):
   stopping_idx = np.sum( score <= alpha * final_score) - 1
   stopping_cost = cost[stopping_idx]
@@ -45,9 +45,9 @@ def kilos(x, pos):
     return '0'
   return '%dK' % (x * 1e-3)
 
-ax.xaxis.set_major_formatter(FuncFormatter(kilos))
-plt.xticks(np.arange(0.0, 18000, 5000))
-plt.yticks(np.arange(0.0, 0.36, 0.08))
+#ax.xaxis.set_major_formatter(FuncFormatter(kilos))
+#plt.xticks(np.arange(0.0, 18000, 5000))
+#plt.yticks(np.arange(0.0, 0.36, 0.08))
 
 plt.xlabel('Feature Cost', fontsize=labelfontsize()) 
 plt.ylabel('Explained Variance', fontsize=labelfontsize())
@@ -61,5 +61,5 @@ plt.legend((r"$\alpha$ = 0.9",
 
 plt.savefig('/home/hanzhang/projects/select_feature/paper/img/timeliness.png',
             bbox_inches='tight', dpi = plt.gcf().dpi)
-#plt.show()
+plt.show()
   

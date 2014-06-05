@@ -93,7 +93,7 @@ def convert_to_spams_format(X, Y, groups):
   return X, Y
 
 def create_spams_params(groups, costs):
-  spams_params = {'numThreads' : -1,'verbose' : False,
+  spams_params = {'numThreads' : -1,'verbose' : True,
          'lambda1' : 0.001, 'it0' : 10, 'max_it' : 500,
          'L0' : 0.1, 'tol' : 1e-5, 'intercept' : False,
          'pos' : False}
