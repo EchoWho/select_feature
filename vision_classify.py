@@ -6,7 +6,19 @@ import vision_common
 
 if __name__ == "__main__":
 
-  filename = sys.argv[1]
+  test_i = int(sys.argv[1])
+  bov_files = [ 'ca01_no_label_bov.mat', 
+    'ca02_no_label_bov.mat', 
+    'ca03_no_label_bov.mat', 
+    'ca04_no_label_bov.mat', 
+    'ca05_no_label_bov.mat', 
+    'ca06_no_label_bov.mat', 
+    'ca07_no_label_bov.mat', 
+    'ca08_no_label_bov.mat', 
+    'ca09_no_label_bov.mat', 
+    'ca10_no_label_bov.mat', 
+    'ca11_no_label_bov.mat'] 
+  filename = '%s/%s' % (vision_common.data_dir, bov_files[test_i])
   #model_bC_name = sys.argv[2]
   methods = ['OMP'] #, 'OMP NOINV', 'OMP SINGLE', 'FR', 'FR SINGLE']
   l2_lam = 1e-6
@@ -14,11 +26,11 @@ if __name__ == "__main__":
   whiten = False
 
   X_raw, Y_raw = vision_common.load_raw_data(filename)
-  X, Y = vision_common.preprocess_X(X_raw, Y_raw, whiten)
+  X, Y = vision_common.preprocess_X(X_raw, Y_raw, test_i, whiten)
   
-  d_pretrain = np.load(vision_common.filename_preprocess_info())
+  d_pretrain = np.load(vision_common.filename_preprocess_info(test_i))
   Y_mean = d_pretrain['Y_mean']
-  model_name = vision_common.filename_model(l2_lam)
+  model_name = vision_common.filename_model(test_i, l2_lam)
   print model_name
   d = np.load(model_name)
   l = []
@@ -45,7 +57,10 @@ if __name__ == "__main__":
         l[-1].append(opt.loss(w, selected_X, Y))
         costs[-1].append(d_costs[idx])
         auc[-1] += (costs[-1][-1] - costs[-1][-2]) * (l[-1][-2] + l[-1][-1]) / 2.0
+
         predicted_val[-1].append( (selected_X.dot(w) + Y_mean) )
+        err = np.sum((predicted_val[-1][-1] >= 0.5) != (Y > 0)) * 1.0 / Y.shape[0]
+        print err
       else:
         l[-1].append(opt.loss(0, np.zeros(Y.shape[0]), Y))
         costs[-1].append(0)
@@ -53,7 +68,7 @@ if __name__ == "__main__":
     
     auc[-1] /= costs[-1][-1] * l[-1][0] 
     
-  result_name = vision_common.filename_budget_vs_loss(l2_lam)
+  result_name = vision_common.filename_budget_vs_loss(test_i, l2_lam)
   L = np.array(l)
   costs = np.array(costs)
   auc = np.array(auc)
