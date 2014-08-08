@@ -55,6 +55,22 @@ def preprocess_X(X_raw, Y_raw, set_id, do_whiten=whiten) :
   d.close()
   return X, Y
 
+def preprocess_X_rebut(X_raw, Y_raw, set_id, do_whiten=whiten):
+  filename = filename_preprocess_info(set_id, do_whiten)
+  d = np.load(filename)
+  if whiten :
+    L_whiten = d['L_whiten']
+    X_mean = d['X_mean']
+    X = np.dot(X_raw - X_mean, L_whiten)
+  else :
+    X_mean = d['X_mean']
+    X_std = d['X_std']
+    X = (X_raw - X_mean) / X_std
+#  Y = Y_raw - d['Y_mean']
+  Y_mean = d['Y_mean']
+  d.close()
+  return X, Y_mean
+
 def load_group(group_size=10) :
   d_groups = np.load('%s/yahoo.groups.size.%d.npz' % (data_dir, group_size))
   groups = d_groups['groups']
