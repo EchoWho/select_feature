@@ -52,20 +52,28 @@ def batch_all(X,Y,X_tes,Y_tes, set_id, v_lams):
   v_lams = np.array(sorted(v_lams)[::-1])
   loss = np.zeros(len(v_lams))
   budget = np.zeros(len(v_lams))
+  err = np.zeros(len(v_lams))
+  models = []
   for i, lam in enumerate(v_lams):
-    loss[i], budget[i] = train_test_one(X,Y,X_tes,Y_tes,set_id, lam)
+    loss[i], budget[i], err[i], model= train_test_one(X,Y,X_tes,Y_tes,set_id, lam)
+    models.append(model)
+  models = np.array(models)
 
-  np.savez('grain_results/spams_%d.npz' % (set_id), budget=budget, loss=loss)
+  np.savez('grain_results/spams_%d.npz' % (set_id), budget=budget, loss=loss, err=err, models=models)
 
 
 def train_test_one(X,Y,X_tes,Y_tes,set_id, lam):
   groups, costs = grain_common.load_group()
   sorted_groups = np.array(sorted(groups))
   (W, optim_info) = spams_train(X, Y, groups, costs, lam)
-  loss = opt.loss(W[:,0], X_tes, Y_tes[:,0]) 
+  loss = opt.loss(W[:,0], X_tes, Y_tes) 
   budget = np.sum(costs[ list(set(sorted_groups[np.nonzero(W)[0]])) ])
-  np.savez('grain_results/spams_%d_lam%f.npz' % (set_id, lam), budget=budget, loss=loss)
-  return loss, budget
+  
+
+  err = np.sum((np.sign(Y_tes) * (Y_tes - X_tes.dot(W[:,0]))) > 0.5) / np.float64(len(Y_tes))  
+  np.savez('grain_results/spams_%d_lam_%f.npz' % (set_id, lam), budget=budget, loss=loss, err=err, models=W[:,0])
+
+  return loss, budget, err, W[:,0]
 
 
 if __name__ == "__main__":
@@ -74,7 +82,7 @@ if __name__ == "__main__":
   nbr_train = X.shape[0]
 
   v_lams = np.array([ 1e3, 500, 1e2, 50, 25, 1e1, 6, 4, 3, 2.5, 2, 1.5, 1, 1e-1, 1e-2 ]) * nbr_train
-  batch_all(X, Y, X_tes, Y_tes, set_id, v_lams)
+  batch_all(X, Y, X_tes, Y_tes.ravel(), set_id, v_lams)
  # v_lams = np.array([ 2 ]) * nbr_train
  # loss, budget = train_test_one(X,Y, X_tes,Y_tes, v_lams[0])
  # print loss

@@ -48,7 +48,7 @@ def plot_oracle(L, budget_limit):
              markeredgecolor=colors[idx], markevery=5)
 
 set_id = int(sys.argv[1])
-plot_err = False
+plot_err = True
 if plot_err:
   y_idx = 3
   y_label_str = "Error Rate"
@@ -149,7 +149,7 @@ elif exp_id == 3:
   L = L.item()
   plot_oracle(L, budget_limit)
   plot_batch(L, ['FR', 'OMP'], y_idx, 'rgb', 's+o^', '-', markevery=5)
-  plot_batch(L, ['FR SINGLE', 'OMP SINGLE'], y_idx, 'rgb', '+o^', '--', markevery=5)
+  plot_batch(L, ['OMP SINGLE'], y_idx, 'gb', '+o^', '--', markevery=5)
   
   d_lasso = np.load('grain_results/spams_%d.npz' % (set_id))
   nbr_groups = bisect.bisect_right(d_lasso['budget'], budget_limit)
@@ -168,7 +168,6 @@ elif exp_id == 3:
            markerfacecolor='none', markersize=7.0, markeredgewidth=1.5,
            markeredgecolor=color)
   plt.legend(('FR Oracle', 'OMP Oracle', 'CS-G-FR', 'CS-G-OMP', 
-              'CS-G-FR-Single', 
               'CS-G-OMP-Single', 'Sparse'), loc='lower right', prop={'size':20})
 #  plt.xlabel('Feature Cost', fontsize=28)
 #  plt.ylabel('%s' % (y_label_str), fontsize=28)
@@ -219,6 +218,34 @@ elif exp_id==4: # Speed up
 #  plt.xlabel('Number of Feature Groups Selected', fontsize=28)
 #  plt.ylabel('Training Time (s)', fontsize=28)
 
+elif exp_id == 5:
+  filename = grain_common.filename_budget_vs_loss(set_id, l2_lam, False)
+  d = np.load(filename)
+  L = d['L']
+  L = L.item()
+  plot_batch(L, ['FR', 'OMP'], y_idx, 'rgb', 's+o^', '-', markevery=5)
+  plot_batch(L, ['OMP SINGLE'], y_idx, 'gb', '+o^', '--', markevery=5)
+  
+  d_lasso = np.load('grain_results/spams_%d.npz' % (set_id))
+  nbr_groups = bisect.bisect_right(d_lasso['budget'], budget_limit)
+  color = 'b'
+  min_performance = 0.020
+  start = 0
+  #for start in range(nbr_groups):
+  #  if (L['OMP'][1][0] - d_lasso['loss'][start]) > min_performance:
+  #    break
+  #lasso_budget = d_lasso['budget'][start:nbr_groups] 
+  #lasso_score = (L['OMP'][y_idx][0] - d_lasso['err'])[start:nbr_groups]
+  #additional_loss = d_lasso['err'][nbr_groups - 1] - (d_lasso['err'][nbr_groups - 1] - d_lasso['err'][nbr_groups] ) * budget_limit / (d_lasso['budget'][nbr_groups] - d_lasso['budget'][nbr_groups-1])
+  #lasso_budget = list(lasso_budget) + [budget_limit]
+  #lasso_score = list(lasso_score) + [L['OMP'][y_idx][0] - additional_loss]
+  #plt.plot(lasso_budget, lasso_score,
+  #         color=color, linewidth=2, linestyle='-', marker='o',
+  #         markerfacecolor='none', markersize=7.0, markeredgewidth=1.5,
+  #         markeredgecolor=color)
+  plt.legend(('CS-G-FR', 'CS-G-OMP', 
+              'CS-G-OMP-Single'), loc='lower right', prop={'size':20})
+
 ax = plt.gca()
 ax.tick_params(axis='x', labelsize=30)
 ax.tick_params(axis='y', labelsize=30)
@@ -239,6 +266,9 @@ ax.yaxis.set_major_formatter(ticker.FormatStrFormatter('%0.3f'))
 
 plt.xlabel('Feature Cost', fontsize=32)
 plt.ylabel('Explained Variance', fontsize=32)
+
+if exp_id == 5:
+  plt.ylabel('Accuracy', fontsize=32)
 
 plt.savefig('grain_results/set%d_exp%d.png' % (set_id, exp_id), 
             bbox_inches='tight',

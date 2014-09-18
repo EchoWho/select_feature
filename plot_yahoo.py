@@ -6,7 +6,7 @@ from yahoo_common import compute_oracle
 import sys, os
 import bisect 
 
-
+use_min_performance = False
 min_performance = 0.16
 
 def plot_batch(L, 
@@ -20,13 +20,20 @@ def plot_batch(L,
                markevery=1) :
   vec_vec_x = [ L[name][0] for name in names ]
   vec_vec_y = [ L[name][1] for name in names ]
+  is_first_lowest = vec_vec_y[0][1] > vec_vec_y[0][0]
+
   for name, color, marker, vec_x, vec_y in zip(names, colors, markers, vec_vec_x, vec_vec_y) :
     len_limit = bisect.bisect_right(vec_x, x_limit) 
-    for i in range(len(vec_y)):
-      if vec_y[0] - vec_y[i] >= min_performance:
-        break
+    i = 3
+    if use_min_performance:
+      for i in range(len(vec_y)):
+        if vec_y[0] - vec_y[i] >= min_performance:
+          break
+    ys = vec_y[i:len_limit]
+    if not is_first_lowest:
+      ys = vec_y[0] - ys
     plt.plot(vec_x[i:len_limit], 
-             (vec_y[0] - vec_y)[i:len_limit], 
+             ys,
              color=color, linewidth=2, linestyle=style, marker=marker,
              markerfacecolor='none', markersize=7.0, markeredgewidth=1.5,
              markeredgecolor=color, markevery=markevery)
@@ -55,7 +62,7 @@ l2_lam = 1e-5
 group_size2budget_list = dict([(5 , 2478), (10 , 3078), (15, 3898), (20, 2348)] )
 
 # 0 lambda, 1 normalization, 2 cost/no cost, 3 full house
-exp_id = 0
+exp_id = 3
 if len(sys.argv) > 3:
   exp_id = int(sys.argv[3])
 fig = plt.figure(figsize=(10,7), dpi=100)
@@ -153,7 +160,7 @@ elif exp_id == 3: # full house
   budget_limit = 5000
   plot_oracle(L, budget_limit)
   plot_batch(L, budget_limit, ['FR', 'OMP'], 'rgb', 's+o^', '-', markevery=5)
-  plot_batch(L, budget_limit, ['FR SINGLE', 'OMP SINGLE'], 'rgb', '+o^', '--', markevery=5)
+  plot_batch(L, budget_limit, ['OMP SINGLE'], 'gb', '+o^', '--', markevery=5)
 
   d_lasso = np.load('yahoo_results/spams_%d_%d.npz' % (set_id, group_size))
   nbr_groups = bisect.bisect_right(d_lasso['budget'], budget_limit) 
@@ -172,7 +179,6 @@ elif exp_id == 3: # full house
 
 
   plt.legend(('FR Oracle', 'OMP Oracle', 'CS-G-FR', 'CS-G-OMP', 
-              'CS-G-FR-Single', 
               'CS-G-OMP-Single', 'Sparse'), loc='lower right', prop={'size':20})
 #  plt.xlabel('Feature Cost', fontsize=28)
 #  plt.ylabel('Reconstruction Error', fontsize=28)
@@ -225,6 +231,43 @@ elif exp_id==4: # Speed up
   exit()
   print "meow"
 
+elif exp_id == 5: # full house NDCG
+  filename = yahoo_common.filename_budget_vs_loss(set_id, partition_id, 
+                                                  group_size, l2_lam, False)
+  ndcg_filename = "{}_rebut2.npz".format(os.path.splitext(filename)[0])
+
+  d = np.load(ndcg_filename)
+  L = d['L']
+  L = L.item()
+  #budget_limit = group_size2budget_list[group_size] #group_size2budget_list[group_size] / 3.0
+  budget_limit = 5000
+  #plot_oracle(L, budget_limit)
+  plot_batch(L, budget_limit, ['FR', 'OMP'], 'rgb', 's+o^', '-', markevery=5)
+  plot_batch(L, budget_limit, ['OMP SINGLE'], 'gb', '+o^', '--', markevery=5)
+
+  d_lasso = np.load('yahoo_results/spams_%d_%d.npz' % (set_id, group_size))
+  nbr_groups = bisect.bisect_right(d_lasso['budget'], budget_limit) 
+  color = 'b'
+  #print L['OMP'][1][0]
+  #print d_lasso['loss']
+  #min_performance = 0.15
+  #for start in range(len(d_lasso['budget'])):
+  #  if L['OMP'][1][0] -  d_lasso['loss'][start] > min_performance:
+  #    break
+
+  start = 3
+  plt.plot(d_lasso['budget'][start:nbr_groups], d_lasso['ndcg'][start:nbr_groups],
+           color=color, linewidth=2, linestyle='-', marker='o',
+           markerfacecolor='none', markersize=7.0, markeredgewidth=1.5,
+           markeredgecolor=color)
+
+
+  plt.legend(('CS-G-FR', 'CS-G-OMP', 
+              'CS-G-OMP-Single', 'Sparse'), loc='lower right', prop={'size':20})
+#  plt.xlabel('Feature Cost', fontsize=28)
+#  plt.ylabel('Reconstruction Error', fontsize=28)
+
+
   
 
 #  plt.xlabel('Number of Feature Groups Selected', fontsize=28)
@@ -250,6 +293,9 @@ ax.yaxis.set_major_formatter(ticker.FormatStrFormatter('%0.2f'))
 
 plt.xlabel('Feature Cost', fontsize=32)
 plt.ylabel('Explained Variance', fontsize=32)
+
+if exp_id == 5:
+  plt.ylabel('NDCG@5', fontsize=32)
 
 plt.savefig('yahoo_results/set%d_size%d_exp%d.png' % (set_id, group_size, exp_id),
             bbox_inches='tight',

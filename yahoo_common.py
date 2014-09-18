@@ -19,7 +19,7 @@ def param_str(do_whiten=whiten, ignore_cost=False) :
 
 def filename_data(set_id, mode) :
   """ Training data filename """
-  return '%s/set%d.%s.txt' % (data_dir, set_id, mode)
+  return '%s/set%d.%s.svmlight' % (data_dir, set_id, mode)
 
 def filename_preprocess_info(set_id, do_whiten=whiten) : 
   """ 

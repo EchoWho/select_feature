@@ -10,7 +10,7 @@ if __name__ == "__main__":
 
   filename = sys.argv[1]
   #model_bC_name = sys.argv[2]
-  methods = ['OMP', 'OMP NOINV', 'OMP SINGLE', 'FR', 'FR SINGLE']
+  methods = ['OMP', 'OMP NOINV', 'OMP SINGLE', 'FR']
   set_id = int(sys.argv[2])
   group_size = int(sys.argv[3])
   l2_lam = np.float64(sys.argv[4])
@@ -75,14 +75,13 @@ if __name__ == "__main__":
             costs[-1].append(d_costs[idx])
           auc[-1] += (costs[-1][-1] - costs[-1][-2]) * (l[-1][-2] + l[-1][-1]) / 2.0
         else:
-          l[-1].append(opt.loss(0, np.zeros(Y.shape[0]), Y))
+          l[-1].append(ndcg_overall(np.zeros(Y.shape), Y, query_starts))
           costs[-1].append(0)
       
       auc[-1] /= costs[-1][-1] * l[-1][0] 
       
-    result_name = yahoo_common.filename_budget_vs_loss(set_id, i, group_size, l2_lam,
-      whiten, ignore_cost)
-    result_name = "{}_rebut.npz".format(os.path.splitext(result_name)[0])
+    result_name = yahoo_common.filename_budget_vs_loss(set_id, i, group_size, l2_lam, whiten, ignore_cost)
+    result_name = "{}_rebut2.npz".format(os.path.splitext(result_name)[0])
     L = np.array(l)
     costs = np.array(costs)
     auc = np.array(auc)
