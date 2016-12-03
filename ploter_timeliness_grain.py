@@ -59,7 +59,7 @@ plt.legend((r"$\alpha$ = 0.9",
             r"$\alpha$ = 0.99"), loc = 'lower right', prop={'size':25}  )
 
 
-plt.savefig('/home/hanzhang/projects/select_feature/paper/img/timeliness.png',
+plt.savefig('/home/hanzhang/projects/select_feature/paper/img/timeliness_grain.png',
             bbox_inches='tight', dpi = plt.gcf().dpi)
 plt.show()
   

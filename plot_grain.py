@@ -126,19 +126,21 @@ elif exp_id==2: # cost / no cost
   L = d['L']
   L_no_cost = L.item()
   
+  start = 2
+  nbr_groups = bisect.bisect_right(L_cost['OMP'][0], budget_limit)
   color = 'r'
-  plt.plot(L_cost['OMP'][0], L_cost['OMP'][y_idx],
+  plt.plot(L_cost['OMP'][0][start:nbr_groups], L_cost['OMP'][y_idx][0] - L_cost['OMP'][y_idx][start:nbr_groups],
            color=color, linewidth=2, linestyle='-', marker='s',
            markerfacecolor='none', markersize=7.0, markeredgewidth=1.5,
            markeredgecolor=color)
   color = 'g'
-  plt.plot(L_no_cost['OMP'][0], L_no_cost['OMP'][y_idx],
+  nbr_groups = bisect.bisect_right(L_no_cost['OMP'][0], budget_limit)
+  plt.plot(L_no_cost['OMP'][0][start:nbr_groups], L_no_cost['OMP'][y_idx][0] - L_no_cost['OMP'][y_idx][start:nbr_groups],
            color=color, linewidth=2, linestyle='-', marker='o',
            markerfacecolor='none', markersize=7.0, markeredgewidth=1.5,
            markeredgecolor=color)
-  plot_oracle(L_cost, 1e8)
-  plt.legend(('Cost Sensitive OMP', 'OMP', 'Oracle'), 
-              loc='upper right', prop={'size':25})
+  plt.legend(('Cost Sensitive OMP', 'OMP'), 
+              loc='lower right', prop={'size':25})
 #  plt.xlabel('Feature Cost', fontsize=28)
 #  plt.ylabel('%s' % (y_label_str), fontsize=28)
 
@@ -234,17 +236,17 @@ elif exp_id == 5:
   #for start in range(nbr_groups):
   #  if (L['OMP'][1][0] - d_lasso['loss'][start]) > min_performance:
   #    break
-  #lasso_budget = d_lasso['budget'][start:nbr_groups] 
-  #lasso_score = (L['OMP'][y_idx][0] - d_lasso['err'])[start:nbr_groups]
-  #additional_loss = d_lasso['err'][nbr_groups - 1] - (d_lasso['err'][nbr_groups - 1] - d_lasso['err'][nbr_groups] ) * budget_limit / (d_lasso['budget'][nbr_groups] - d_lasso['budget'][nbr_groups-1])
-  #lasso_budget = list(lasso_budget) + [budget_limit]
-  #lasso_score = list(lasso_score) + [L['OMP'][y_idx][0] - additional_loss]
-  #plt.plot(lasso_budget, lasso_score,
-  #         color=color, linewidth=2, linestyle='-', marker='o',
-  #         markerfacecolor='none', markersize=7.0, markeredgewidth=1.5,
-  #         markeredgecolor=color)
+  lasso_budget = d_lasso['budget'][start:nbr_groups] 
+  lasso_score = (L['OMP'][y_idx][0] - d_lasso['err'])[start:nbr_groups]
+  additional_loss = d_lasso['err'][nbr_groups - 1] - (d_lasso['err'][nbr_groups - 1] - d_lasso['err'][nbr_groups] ) * budget_limit / (d_lasso['budget'][nbr_groups] - d_lasso['budget'][nbr_groups-1])
+  lasso_budget = list(lasso_budget) + [budget_limit]
+  lasso_score = list(lasso_score) + [L['OMP'][y_idx][0] - additional_loss]
+  plt.plot(lasso_budget[3:], lasso_score[3:],
+           color=color, linewidth=2, linestyle='-', marker='o',
+           markerfacecolor='none', markersize=7.0, markeredgewidth=1.5,
+           markeredgecolor=color)
   plt.legend(('CS-G-FR', 'CS-G-OMP', 
-              'CS-G-OMP-Single'), loc='lower right', prop={'size':20})
+              'CS-G-OMP-Single', 'Sparse'), loc='lower right', prop={'size':20})
 
 ax = plt.gca()
 ax.tick_params(axis='x', labelsize=30)
