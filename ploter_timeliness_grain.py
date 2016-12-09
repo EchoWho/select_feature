@@ -55,7 +55,9 @@ plt.ylabel('Explained Variance', fontsize=labelfontsize())
 plt.rc('text', usetex=True)
 plt.legend((r"$\alpha$ = 0.9",
             r"$\alpha$ = 0.95",
+            r"$\alpha$ = 0.96",
             r"$\alpha$ = 0.97",
+            r"$\alpha$ = 0.98",
             r"$\alpha$ = 0.99"), loc = 'lower right', prop={'size':25}  )
 
 
